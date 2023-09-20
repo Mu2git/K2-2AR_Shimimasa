@@ -1,54 +1,28 @@
-<!DOCTYPE html>
 <html>
-    <script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-    
-    <style>
-      .arjs-loader {
-        height: 100%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: rgba(0, 0, 0, 0.8);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .arjs-loader div {
-        text-align: center;
-        font-size: 1.25em;
-        color: white;
-      }
-    </style>
-    
-    <body style="margin : 0px; overflow: hidden;">
-      <div class="arjs-loader">
-        <div>"ロード中...お待ちください。"</div>
-      </div>
-      <a-scene
-        vr-mode-ui="enabled: false;"
-        renderer="logarithmicDepthBuffer: true;"
-        embedded
-        arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-      >
-        <a-nft
-          type="nft"
-          url="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/trex-image/trex"
-          smooth="true"
-          smoothCount="10"
-          smoothTolerance=".01"
-          smoothThreshold="5"
-        >
-          <a-entity
-            gltf-model="https://arjs-cors-proxy.herokuapp.com/https://raw.githack.com/AR-js-org/AR.js/master/aframe/examples/image-tracking/nft/trex/scene.gltf"
-            scale="5 5 5"
-            position="50 150 0"
-          >
-          </a-entity>
-        </a-nft>
-        <a-entity camera></a-entity>
-      </a-scene>
-    </body>
+  <head>
+    <!-- A-Frameを読み込む -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <!-- AR.jsを読み込む -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden">
+    <!-- シーンの作成、VRモードのUI非表示 -->
+    <a-scene embedded arjs vr-mode-ui="enabled: false">
+      <a-assets>
+        <!-- 3Dモデルを読み込む -->
+        <a-asset-item id="shimimasa" src="shimimasa.glb" scale="1 1 1"></a-asset-item>
+      </a-assets>
+      <!-- マーカーを設定する -->
+      <a-marker type="pattern" url="hiro.jpg">
+        <!-- 3Dモデルを呼び出す -->
+        <a-entity gltf-model="#shimimasa" rotation="-90 0 0"></a-entity>
+      </a-marker>
+      <!-- カメラを追加 -->
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+  <script>
+      //glTFの表示が暗くなる問題に対処
+      document.querySelector("a-scene").renderer.gammaOutput=true;
+  </script>
 </html>
